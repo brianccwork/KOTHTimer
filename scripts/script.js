@@ -3,19 +3,23 @@ const blueTimeEl  = document.getElementById('blueTime');
 const roundLeftEl = document.getElementById('roundLeft');
 const roundInput  = document.getElementById('roundInput');
 
+const modal  = new bootstrap.Modal(document.getElementById('kothModal'));
+const mTitle = document.getElementById('modalTitle');
+const mBody  = document.getElementById('modalBody');
 const confirmBtn = document.getElementById('modalConfirmBtn');
 
 function showModal(title, body, onConfirm){
   mTitle.textContent = title;
   mBody.textContent  = body;
 
+  /* remove any previous click handler */
   confirmBtn.replaceWith(confirmBtn.cloneNode(true));
   const freshBtn = document.getElementById('modalConfirmBtn');
 
   if (onConfirm){
     freshBtn.onclick = () => {
-      modal.hide();   
-      onConfirm();  
+      modal.hide();     // close first for nice UX
+      onConfirm();      // then run the callback
     };
   } else {
     freshBtn.onclick = () => modal.hide();
@@ -23,6 +27,7 @@ function showModal(title, body, onConfirm){
 
   modal.show();
 }
+
 
 let roundLimit = 10 * 60 * 1000;   // ms
 let redTotal = 0, blueTotal = 0;
@@ -90,16 +95,19 @@ document.getElementById('arena').addEventListener('click', e=>{
   if (t) startTeam(t.dataset.team);
 });
 
-document.getElementById('setBtn').addEventListener('click', ()=>{
+/* Set new round time */
+document.getElementById('setBtn').addEventListener('click', () => {
   showModal('New Round Time',
-            'Press “Close” to start the new round.',
-            ()=>reset(true));
+            'Press "Confirm" to start the new round.',
+            () => reset(true));
 });
 
-document.getElementById('resetBtn').addEventListener('click', ()=>{
+/* Reset current timers */
+document.getElementById('resetBtn').addEventListener('click', () => {
   showModal('Reset Round',
-            'Press “Close” to zero the timers.',
+            'Press "Confirm" to zero the timers.',
             reset);
 });
+
 
 reset(true);
