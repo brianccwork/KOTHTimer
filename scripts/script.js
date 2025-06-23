@@ -1,99 +1,97 @@
-//Elements
 const redTimeEl   = document.getElementById('redTime');
 const blueTimeEl  = document.getElementById('blueTime');
 const roundLeftEl = document.getElementById('roundLeft');
 const roundInput  = document.getElementById('roundInput');
 
-//State
-let roundLimit = 10 * 60 * 1000;   // default 10 min (ms)
-let redTotal   = 0;
-let blueTotal  = 0;
-let activeTeam = null;             // 'red' | 'blue' | null
-let lastStart  = null;             // timestamp when current team took hill
-let ticker     = null;             // setInterval id
+const modal  = new bootstrap.Modal(document.getElementById('kothModal'));
+const mTitle = document.getElementById('modalTitle');
+const mBody  = document.getElementById('modalBody');
+function showModal(title, body, onClose){
+  mTitle.textContent = title;
+  mBody.textContent  = body;
+  if (onClose){
+    document.getElementById('kothModal')
+      .addEventListener('hidden.bs.modal', onClose, {once:true});
+  }
+  modal.show();
+}
 
-//Helpers
+let roundLimit = 10 * 60 * 1000;   // ms
+let redTotal = 0, blueTotal = 0;
+let activeTeam = null;
+let lastStart = null;
+let ticker = null;
+
 const fmt = ms => {
   const m  = Math.floor(ms / 60000);
   const s  = Math.floor((ms % 60000) / 1000);
-  const ds = Math.floor((ms % 1000) / 100);   // tenths
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}.${ds}`;
+  const ds = Math.floor((ms % 1000) / 100);
+  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${ds}`;
 };
 
-function updateDisplays() {
-  const now  = Date.now();
-  const red  = redTotal  + (activeTeam === 'red'  ? now - lastStart : 0);
-  const blue = blueTotal + (activeTeam === 'blue' ? now - lastStart : 0);
+function updateDisplays(){
+  const now = Date.now();
+  const red  = redTotal  + (activeTeam==='red'  ? now-lastStart : 0);
+  const blue = blueTotal + (activeTeam==='blue' ? now-lastStart : 0);
 
   redTimeEl.textContent  = fmt(red);
   blueTimeEl.textContent = fmt(blue);
 
-  const elapsed   = red + blue;
-  const remaining = Math.max(roundLimit - elapsed, 0);
+  const remaining = Math.max(roundLimit - (red+blue), 0);
   roundLeftEl.textContent = `Round: ${fmt(remaining)} left`;
-
   if (remaining === 0) endRound();
 }
 
-function startTeam(team) {
-  //ignore if round over or same team tapped
-  if (!ticker || activeTeam === team) return;
-
+/*Core logic */
+function startTeam(team){
+  if (activeTeam === team) return;          // same team—ignore
   const now = Date.now();
-  if (activeTeam === 'red')  redTotal  += now - lastStart;
-  if (activeTeam === 'blue') blueTotal += now - lastStart;
-
+  if (activeTeam === 'red') redTotal  += now - lastStart;
+  if (activeTeam === 'blue')blueTotal += now - lastStart;
   activeTeam = team;
   lastStart  = now;
+  if (!ticker) ticker = setInterval(updateDisplays,100);
 }
 
-function endRound() {
+function endRound(){
   if (!ticker) return;
+  clearInterval(ticker); ticker = null;
 
   const now = Date.now();
-  if (activeTeam === 'red')  redTotal  += now - lastStart;
-  if (activeTeam === 'blue') blueTotal += now - lastStart;
-
+  if (activeTeam==='red')  redTotal  += now - lastStart;
+  if (activeTeam==='blue') blueTotal += now - lastStart;
   activeTeam = null;
-  clearInterval(ticker);
-  ticker = null;
 
-  const msg =
+  const winner =
     redTotal > blueTotal ? 'RED wins!' :
     blueTotal > redTotal ? 'BLUE wins!' :
     'It’s a tie!';
-  alert(msg);
+  showModal('Round Over', winner);
 }
 
-function reset(full = false) {
+function reset(full=false){
+  clearInterval(ticker); ticker = null;
   redTotal = blueTotal = 0;
   activeTeam = lastStart = null;
-
-  if (ticker) clearInterval(ticker);
-  ticker = setInterval(updateDisplays, 100);   // 10 fps
-
-  if (full) {
-    roundLimit = (Number(roundInput.value) || 10) * 60 * 1000;
-  }
-  updateDisplays();
+  if (full) roundLimit = (+roundInput.value || 10)*60*1000;
+  updateDisplays();                 // shows 00:00 again
 }
 
-//event listeners
-document.getElementById('arena').addEventListener('click', e => {
-  const section = e.target.closest('.team');
-  if (!section) return;
-
-  if (!ticker) ticker = setInterval(updateDisplays, 100); // start clock
-  startTeam(section.dataset.team);
+document.getElementById('arena').addEventListener('click', e=>{
+  const t = e.target.closest('.team');
+  if (t) startTeam(t.dataset.team);
 });
 
-document.getElementById('setBtn').addEventListener('click', () => {
-  if (confirm('Set new round time and restart?')) reset(true);
+document.getElementById('setBtn').addEventListener('click', ()=>{
+  showModal('New Round Time',
+            'Press “Close” to start the new round.',
+            ()=>reset(true));
 });
 
-document.getElementById('resetBtn').addEventListener('click', () => {
-  if (confirm('Reset current round?')) reset();
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  showModal('Reset Round',
+            'Press “Close” to zero the timers.',
+            reset);
 });
 
-//reset
 reset(true);

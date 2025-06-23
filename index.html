@@ -1,43 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KOTH Mode</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32"  href="icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16"  href="icons/favicon-16x16.png">
-    <link rel="manifest" href="icons/site.webmanifest">
-    <meta name="theme-color" content="#0d0d0d">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KOTH Mode</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32"  href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16"  href="icons/favicon-16x16.png">
+  <link rel="manifest" href="icons/site.webmanifest">
+  <meta name="theme-color" content="#0d0d0d">
 </head>
 
 <body>
-    <!-- teams -->
-    <div id="arena">
-        <div id="redSide" class="team" data-team="red">
-            RED
-            <div class="timer" id="redTime">00:00.0</div>
-        </div>
-        <div id="blueSide" class="team" data-team="blue">
-            BLUE
-            <div class="timer" id="blueTime">00:00.0</div>
-        </div>
+  <div id="arena">
+    <div id="redSide"  class="team" data-team="red">
+      RED <div class="timer" id="redTime">00:00.0</div>
     </div>
+    <div id="blueSide" class="team" data-team="blue">
+      BLUE <div class="timer" id="blueTime">00:00.0</div>
+    </div>
+  </div>
 
-    <!-- controls -->
-    <div id="controls">
-        <label>Round Time (min):
-            <input id="roundInput" type="number" min="1" value="10">
-        </label>
-        <button id="setBtn">Set Round Time</button>
-        <button id="resetBtn">Reset</button>
-        <div id="roundLeft">Round: 10:00.0 left</div> 
-        <a href="defuse.html" class="nav-btn">DEFUSE MODE</a>
+  <div id="controls" class="bg-dark p-3 text-center d-flex flex-wrap gap-2 justify-content-center">
+    <label class="form-label mb-0 text-white">
+      Round&nbsp;Time&nbsp;(min):
+      <input id="roundInput" type="number" min="1" value="10" class="form-control d-inline-block w-auto ms-1">
+    </label>
+
+    <button id="setBtn"  class="btn btn-success fw-bold">Set Round Time</button>
+    <button id="resetBtn" class="btn btn-danger  fw-bold">Reset</button>
+
+    <div id="roundLeft" class="w-100 text-white fw-semibold mt-2">Round: 10:00.0 left</div>
+    <a href="defuse.html" class="btn btn-nav mt-2">DEFUSE&nbsp;MODE</a>
+
+  </div>
+
+  <div class="modal fade" id="kothModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="modalTitle">Modal</h5>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
-    
-    <script src="scripts/script.js"></script>
+  </div>
+
+  <script src="scripts/script.js" defer></script>
 </body>
-
 </html>
