@@ -44,16 +44,23 @@
   <div class="modal fade" id="kothModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content bg-dark text-white">
+
         <div class="modal-header border-0">
           <h5 class="modal-title" id="modalTitle">Modal</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+
         <div class="modal-body" id="modalBody"></div>
-        <div class="modal-footer border-0">
-          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+
+        <div class="modal-footer border-0 justify-content-center">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="modalConfirmBtn">Confirm</button>
         </div>
+
       </div>
     </div>
   </div>
+
 
   <script src="scripts/script.js" defer></script>
 </body>

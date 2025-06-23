@@ -3,16 +3,24 @@ const blueTimeEl  = document.getElementById('blueTime');
 const roundLeftEl = document.getElementById('roundLeft');
 const roundInput  = document.getElementById('roundInput');
 
-const modal  = new bootstrap.Modal(document.getElementById('kothModal'));
-const mTitle = document.getElementById('modalTitle');
-const mBody  = document.getElementById('modalBody');
-function showModal(title, body, onClose){
+const confirmBtn = document.getElementById('modalConfirmBtn');
+
+function showModal(title, body, onConfirm){
   mTitle.textContent = title;
   mBody.textContent  = body;
-  if (onClose){
-    document.getElementById('kothModal')
-      .addEventListener('hidden.bs.modal', onClose, {once:true});
+
+  confirmBtn.replaceWith(confirmBtn.cloneNode(true));
+  const freshBtn = document.getElementById('modalConfirmBtn');
+
+  if (onConfirm){
+    freshBtn.onclick = () => {
+      modal.hide();   
+      onConfirm();  
+    };
+  } else {
+    freshBtn.onclick = () => modal.hide();
   }
+
   modal.show();
 }
 
