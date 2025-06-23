@@ -1,6 +1,5 @@
-/* --- layout wrapper -------------------------------------------- */
 #defuseApp{
-  min-height:100svh;           /* full device height—even on mobile chrome */
+  min-height:100svh;      
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -11,16 +10,13 @@
 
 #codeReveal{ font-size:clamp(1.2rem,4vw,2rem); letter-spacing:.15em; }
 
-/* --- keypad grid ------------------------------------------------
-   - min() keeps buttons inside viewport on tiny phones (2–3 cols)
-   - auto-fill replicates 3-across on wider screens              */
 .pad{
-  --btn:clamp(60px,28vw,90px);     /* 60-90 px responsive square   */
+  --btn:clamp(60px,28vw,90px);   
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(var(--btn),1fr));
   gap:.6rem;
   width:100%;
-  max-width:290px;                 /* matches classic Nerf keypad  */
+  max-width:290px;              
   margin-inline:auto;
 }
 .pad button{
@@ -34,7 +30,6 @@
 }
 .pad button:hover{ background:#495057; }
 
-/* --- entry field ------------------------------------------------ */
 #enterDisplay{
   font-size:clamp(1.3rem,5vw,1.7rem);
   letter-spacing:.15em;
