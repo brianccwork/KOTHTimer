@@ -94,19 +94,20 @@ button {
   font-weight: 600;
 }
 
-.nav-btn {
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  padding: 0.5rem 0.9rem;
-  font-weight: 700;
-  background: #ffd166;
-  color: #000;
-  border-radius: 6px;
-  text-decoration: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transition: transform 0.15s;
+.nav-btn{
+  display:inline-block;      
+  align-self:center;            
+  margin-top:var(--gap);        
+  padding:0.5rem 1rem;
+  font-weight:700;
+  font-size:0.9rem;
+  background:#ffd166;
+  color:#000;
+  border:none;
+  border-radius:6px;
+  text-decoration:none;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+  cursor:pointer;
+  transition:transform .15s;
 }
-.nav-btn:hover {
-  transform: translateY(-2px);
-}
+.nav-btn:hover{ transform:translateY(-2px); }
