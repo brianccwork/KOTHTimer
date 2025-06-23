@@ -12,16 +12,18 @@ function showModal(title, body, onConfirm){
   mTitle.textContent = title;
   mBody.textContent  = body;
 
-  /* clear any previous listener */
   confirmBtn.replaceWith(confirmBtn.cloneNode(true));
-  const freshBtn = document.getElementById('modalConfirmBtn');
+  const freshBtn = document.getElementById('modalConfirmBtn'); 
 
   if (onConfirm){
     freshBtn.addEventListener('click', () => {
-      /* run callback only after the fade-out completes */
+
+      freshBtn.blur();                    
+
       const fn = () => { onConfirm(); modalEl.removeEventListener('hidden.bs.modal', fn); };
-      modalEl.addEventListener('hidden.bs.modal', fn);
-    }, {once:true});
+      modalEl.addEventListener('hidden.bs.modal', fn, { once:true });
+
+    }, { once:true });
   }
 
   modal.show();
