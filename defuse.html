@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,8 +16,8 @@
   <audio id="defused" preload="auto" src="audio/success.mp3"></audio>
 
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32"  href="icons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16"  href="icons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
   <link rel="manifest" href="icons/site.webmanifest">
   <meta name="theme-color" content="#0d0d0d">
 </head>
@@ -24,11 +25,10 @@
 <body>
   <div id="defuseApp" class="container py-4 d-flex flex-column align-items-center text-center gap-3">
 
-    <div class="d-flex gap-2 align-items-center">
+    <div class="d-flex flex-column flex-md-row gap-2 align-items-center justify-content-center">
       <label class="form-label text-white mb-0">
         Timer&nbsp;(sec):
-        <input id="timeInput" type="number" min="10" value="45"
-               class="form-control d-inline-block w-auto ms-1">
+        <input id="timeInput" type="number" min="10" value="45" class="form-control d-inline-block w-auto ms-1">
       </label>
       <button id="plantBtn" class="btn btn-success fw-bold">Plant&nbsp;Spike</button>
     </div>
@@ -69,4 +69,5 @@
 
   <script src="scripts/defuse.js" defer></script>
 </body>
+
 </html>
