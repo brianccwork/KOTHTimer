@@ -8,22 +8,18 @@ const confirmBtn = document.getElementById('modalConfirmBtn');
 const modalEl    = document.getElementById('kothModal');
 const modal      = new bootstrap.Modal(modalEl);
 
-function showModal(title, body, onConfirm){
+function showModal(title, body, onConfirm) {
   mTitle.textContent = title;
   mBody.textContent  = body;
 
-  confirmBtn.replaceWith(confirmBtn.cloneNode(true));
-  const freshBtn = document.getElementById('modalConfirmBtn'); 
+  confirmBtn.onclick = null;
 
-  if (onConfirm){
-    freshBtn.addEventListener('click', () => {
-
-      freshBtn.blur();                    
-
-      const fn = () => { onConfirm(); modalEl.removeEventListener('hidden.bs.modal', fn); };
-      modalEl.addEventListener('hidden.bs.modal', fn, { once:true });
-
-    }, { once:true });
+  if (onConfirm) {
+    confirmBtn.onclick = () => {
+      confirmBtn.blur(); 
+      onConfirm();       
+      modal.hide();     
+    };
   }
 
   modal.show();
