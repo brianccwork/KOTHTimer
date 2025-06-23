@@ -2,27 +2,26 @@ const redTimeEl   = document.getElementById('redTime');
 const blueTimeEl  = document.getElementById('blueTime');
 const roundLeftEl = document.getElementById('roundLeft');
 const roundInput  = document.getElementById('roundInput');
-
-const modal  = new bootstrap.Modal(document.getElementById('kothModal'));
 const mTitle = document.getElementById('modalTitle');
 const mBody  = document.getElementById('modalBody');
 const confirmBtn = document.getElementById('modalConfirmBtn');
+const modalEl    = document.getElementById('kothModal');
+const modal      = new bootstrap.Modal(modalEl);
 
 function showModal(title, body, onConfirm){
   mTitle.textContent = title;
   mBody.textContent  = body;
 
-  /* remove any previous click handler */
+  /* clear any previous listener */
   confirmBtn.replaceWith(confirmBtn.cloneNode(true));
   const freshBtn = document.getElementById('modalConfirmBtn');
 
   if (onConfirm){
-    freshBtn.onclick = () => {
-      modal.hide();     // close first for nice UX
-      onConfirm();      // then run the callback
-    };
-  } else {
-    freshBtn.onclick = () => modal.hide();
+    freshBtn.addEventListener('click', () => {
+      /* run callback only after the fade-out completes */
+      const fn = () => { onConfirm(); modalEl.removeEventListener('hidden.bs.modal', fn); };
+      modalEl.addEventListener('hidden.bs.modal', fn);
+    }, {once:true});
   }
 
   modal.show();
