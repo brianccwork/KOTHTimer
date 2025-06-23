@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defuse Mode</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/defuse.css">
+    <!-- audio cues -->
+    <audio id="explode" preload="auto" src="audio/failed.mp3"></audio>
+    <audio id="defused" preload="auto" src="audio/success.mp3"></audio>
+
+</head>
+
+<body>
+    <div id="defuseApp">
+        <!-- set & plant -->
+        <label>Timer (sec):
+            <input id="timeInput" type="number" min="10" value="45">
+        </label>
+        <button id="plantBtn">Plant Spike</button>
+
+        <!-- live countdown -->
+        <div id="countdown">00</div>
+
+        <!-- decrypt & reveal -->
+        <button id="decryptBtn" disabled>Decrypt Code (5 s)</button>
+        <div id="codeReveal"></div>
+
+        <!-- keypad -->
+        <div id="enterDisplay"></div>
+        <div class="pad" id="numpad"></div>
+
+        <!-- feedback -->
+        <div id="statusMsg"></div>
+    </div>
+
+    <!-- audio cues -->
+    <audio id="explode" src="audio1.mp3" preload="auto"></audio>
+    <audio id="defused" src="audio2.mp3" preload="auto"></audio>
+
+    <!-- back to hill -->
+    <a href="index.html" class="nav-btn">KOTH MODE</a>
+
+    <script src="scripts/defuse.js"></script>
+</body>
+
+</html>

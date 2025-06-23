@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KOTH Timer</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <!-- teams -->
+    <div id="arena">
+        <div id="redSide" class="team" data-team="red">
+            RED
+            <div class="timer" id="redTime">00:00.0</div>
+        </div>
+        <div id="blueSide" class="team" data-team="blue">
+            BLUE
+            <div class="timer" id="blueTime">00:00.0</div>
+        </div>
+    </div>
+
+    <!-- controls -->
+    <div id="controls">
+        <label>Round Time (min):
+            <input id="roundInput" type="number" min="1" value="10">
+        </label>
+        <button id="setBtn">Set Round Time</button>
+        <button id="resetBtn">Reset</button>
+        <div id="roundLeft">Round: 10:00.0 left</div>
+        <a href="defuse.html" class="nav-btn">DEFUSE MODE</a>
+    </div>
+
+
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>
